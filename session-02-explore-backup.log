@@ -1,0 +1,298 @@
+Exword dictionary tool.
+Type 'help' for a list of commands.
+>> connect
+connecting to device...done
+\_INTERNAL_00\ >> setpath mem:///
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> get ./dumps/internal/fav.inf
+downloading...OK, Success
+\_INTERNAL_00\ >> get ./dumps/internal/line3.inf
+downloading...OK, Success
+\_INTERNAL_00\ >> get ./dumps/internal/drvvewer.inf
+downloading...OK, Success
+\_INTERNAL_00\ >> get ./dumps/internal/siorivi.inf
+downloading...OK, Success
+\_INTERNAL_00\ >> get ./dumps/internal/jpush.wrk
+downloading...OK, Success
+\_INTERNAL_00\ >> get ./dumps/internal/jlpush.wrk
+downloading...OK, Success
+\_INTERNAL_00\ >> setpath sd:///
+SD card not inserted.
+\_INTERNAL_00\ >> setpath mem:///data
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> setpath mem:///sys_bak
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> setpath mem:///cj900
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> setpath mem:///cj900_01
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> setpath mem:///cj901
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> setpath mem:///stdy0
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> setpath mem:///hyaku
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> setpath mem:///numplace
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> setpath mem:///temp.inf
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> 

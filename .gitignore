@@ -1,0 +1,33 @@
+# Device backups: personal data, kept in a separate private repo
+dumps/
+# live.sh FIFO
+.live.in
+
+# libexword build outputs (regenerate: see README quick start)
+*.o
+*.lo
+*.la
+*~
+.deps/
+.libs/
+autom4te.cache/
+Makefile
+Makefile.in
+libexword/INSTALL
+libexword/aclocal.m4
+libexword/build*.log
+libexword/compile
+libexword/config.guess
+libexword/config.h
+libexword/config.log
+libexword/config.status
+libexword/config.sub
+libexword/configure
+libexword/depcomp
+libexword/install-sh
+libexword/libexword.pc
+libexword/libtool
+libexword/ltmain.sh
+libexword/missing
+libexword/stamp-h1
+libexword/src/exword

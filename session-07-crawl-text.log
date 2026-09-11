@@ -1,0 +1,116 @@
+connect text
+connecting to device...done
+\_INTERNAL_00\ >> model
+Model: gy131,ON,0100
+Sub: gy355
+\_INTERNAL_00\ >> setpath raw://
+ >> list
+_INTERNAL_00
+OK, Success
+ >> setpath raw://\_INTERNAL_00
+\_INTERNAL_00 >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+siorivi.inf
+jpush.wrk
+jlpush.wrk
+temp.inf
+OK, Success
+\_INTERNAL_00 >> get ./dumps/text/_INTERNAL_00/fav.inf
+downloading...OK, Success
+\_INTERNAL_00 >> get ./dumps/text/_INTERNAL_00/line3.inf
+downloading...OK, Success
+\_INTERNAL_00 >> get ./dumps/text/_INTERNAL_00/drvvewer.inf
+downloading...OK, Success
+\_INTERNAL_00 >> get ./dumps/text/_INTERNAL_00/siorivi.inf
+downloading...OK, Success
+\_INTERNAL_00 >> get ./dumps/text/_INTERNAL_00/jpush.wrk
+downloading...OK, Success
+\_INTERNAL_00 >> get ./dumps/text/_INTERNAL_00/jlpush.wrk
+downloading...OK, Success
+\_INTERNAL_00 >> get ./dumps/text/_INTERNAL_00/temp.inf
+downloading...Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\sys_bak
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\data
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\cj900
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\cj900_01
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\cj900_02
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\cj900_03
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\cj900_04
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\cj900_05
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\cj901
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\cj901_01
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\cj901_02
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\cj901_03
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\cj901_04
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\cj901_05
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\stdy0
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\hyaku
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00\numplace
+Not found
+\_INTERNAL_00 >> setpath raw://\_INTERNAL_00
+\_INTERNAL_00 >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+siorivi.inf
+jpush.wrk
+jlpush.wrk
+temp.inf
+OK, Success
+\_INTERNAL_00 >> capacity
+Capacity: 52428800 / 52428800
+\_INTERNAL_00 >> disconnect
+disconnecting...done
+>> 

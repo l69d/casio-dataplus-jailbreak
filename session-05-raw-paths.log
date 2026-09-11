@@ -1,0 +1,65 @@
+Exword dictionary tool.
+Type 'help' for a list of commands.
+>> connect
+connecting to device...done
+\_INTERNAL_00\ >> setpath raw://
+ >> list
+_INTERNAL_00
+OK, Success
+ >> setpath raw://\drv0
+Not found
+ >> list
+_INTERNAL_00
+OK, Success
+ >> setpath raw://\sys0
+Not found
+ >> list
+_INTERNAL_00
+OK, Success
+ >> setpath raw://\sys0\sys_bin
+Not found
+ >> list
+_INTERNAL_00
+OK, Success
+ >> setpath raw://\data0
+Not found
+ >> list
+_INTERNAL_00
+OK, Success
+ >> setpath raw://\data0\font
+Not found
+ >> list
+_INTERNAL_00
+OK, Success
+ >> setpath mem:///
+\_INTERNAL_00\ >> set debug 5
+\_INTERNAL_00\ >> setpath mem:///data
+obex_object_addheader(): BS/Unicode header size 38
+obex_object_send(): Adding 2 bytes of non-headerdata
+obex_object_send(): Adding non-body header
+obex_object_send(): Sending package with opcode 133
+Tx: 16 85 00 2E 02 00 01 00 29 00 5C 00 5F 00 49 00 4E 00 54 00 45 00 52 00 4E 00
+Tx: 41 00 4C 00 5F 00 30 00 30 00 5C 00 64 00 61 00 74 00 61 00 00
+obex_object_send(): len = 47 bytes
+obex_bulk_write(): Write to endpoint 1
+obex_bulk_read(): Read from endpoint 130
+obex_object_receive(): Got 3 bytes msg len=3
+Rx: C4 00 03
+obex_object_addheader(): BS/Unicode header size 30
+obex_object_send(): Adding 2 bytes of non-headerdata
+obex_object_send(): Adding non-body header
+obex_object_send(): Sending package with opcode 133
+Tx: 17 85 00 26 02 00 01 00 21 00 5C 00 5F 00 49 00 4E 00 54 00 45 00 52 00 4E 00
+Tx: 41 00 4C 00 5F 00 30 00 30 00 5C 00 00
+obex_object_send(): len = 39 bytes
+obex_bulk_write(): Write to endpoint 1
+obex_bulk_read(): Read from endpoint 130
+obex_object_receive(): Got 3 bytes msg len=3
+Rx: A0 00 03
+Not found
+\_INTERNAL_00\ >> set debug 0
+\_INTERNAL_00\ >> capacity
+Forbidden
+\_INTERNAL_00\ >> disconnect
+disconnecting...done
+>> 

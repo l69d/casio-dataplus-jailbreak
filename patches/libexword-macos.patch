@@ -1,0 +1,79 @@
+diff --git a/configure.ac b/configure.ac
+index d251b82..024f8a5 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -3,7 +3,7 @@
+ 
+ AC_PREREQ([2.61])
+ AC_INIT(libexword, 0.1, brijohn@gmail.com)
+-AM_INIT_AUTOMAKE([-Wall -Werror])
++AM_INIT_AUTOMAKE([-Wall])
+ AC_CONFIG_SRCDIR([src/exword.c])
+ AC_CONFIG_HEADERS([config.h])
+ 
+diff --git a/src/main.c b/src/main.c
+index 4b9cb9b..83520a4 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -30,6 +30,8 @@
+ #include "util.h"
+ #include "list.h"
+ 
++int dict_reset(exword_t *device, char *user);
++
+ struct state {
+ 	exword_t *device;
+ 	int mode;
+@@ -636,8 +638,19 @@ void setpath(struct state *s)
+ 					printf("%s\n", exword_response_to_string(rsp));
+ 					exword_setpath(s->device, s->cwd, 0);
+ 				}
++			} else if (strncmp(path, "raw://", 6) == 0) {
++				/* path sent as-is, never creates dirs; "raw://" alone lists storage media */
++				rsp = exword_setpath(s->device, path + 6, 0);
++				if (rsp == 0x20) {
++					free(s->cwd);
++					s->cwd = xmalloc(strlen(path + 6) + 1);
++					strcpy(s->cwd, path + 6);
++				} else {
++					printf("%s\n", exword_response_to_string(rsp));
++					exword_setpath(s->device, s->cwd, 0);
++				}
+ 			} else {
+-				printf("Invalid argument. Format (sd|mem)://<path>\n");
++				printf("Invalid argument. Format (sd|mem|raw)://<path>\n");
+ 			}
+ 		}
+ 	}
+@@ -732,7 +745,9 @@ void interactive(struct state *s)
+ 		free(prompt);
+ 		prompt = create_prompt(s->cwd);
+ 		line = readline(prompt);
+-		if (line == NULL || *line == '\0')
++		if (line == NULL)
++			break;
++		if (*line == '\0')
+ 			continue;
+ 		add_history(line);
+ 		fill_arg_list(&(s->cmd_list), line);
+@@ -748,6 +763,7 @@ int main(int argc, const char** argv)
+ {
+ 	struct state s;
+ 	setlocale(LC_ALL, "");
++	setvbuf(stdout, NULL, _IONBF, 0);
+ 	memset(&s, 0, sizeof(struct state));
+ 	interactive(&s);
+ 	return 0;
+diff --git a/src/obex.h b/src/obex.h
+index 3cf6ef6..a874b03 100644
+--- a/src/obex.h
++++ b/src/obex.h
+@@ -276,7 +276,7 @@ void obex_set_connect_info(obex_t *self, uint8_t ver, uint8_t locale);
+ void obex_register_callback(obex_t *self, obex_callback cb, void * userdata);
+ obex_object_t * obex_object_new(obex_t *self, uint8_t cmd);
+ int obex_object_delete(obex_t *self, obex_object_t *object);
+-int obex_object_add_header(obex_t *self, obex_object_t *object,
++int obex_object_addheader(obex_t *self, obex_object_t *object,
+ 			   uint8_t hi, obex_headerdata_t hv, uint32_t hv_size,
+ 			   unsigned int flags);
+ int obex_object_getnextheader(obex_t *self, obex_object_t *object,

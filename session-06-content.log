@@ -1,0 +1,206 @@
+Exword dictionary tool.
+Type 'help' for a list of commands.
+>> connect
+connecting to device...done
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> capacity
+Capacity: 52428800 / 52428800
+\_INTERNAL_00\ >> setpath raw://\_INTERNAL_00\cj900\_CONTENT
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> get ./dumps/internal/cj900_CONTENT/diction.htm
+downloading...Not found
+\_INTERNAL_00\ >> setpath raw://\_INTERNAL_00\cj900\_USER
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> setpath raw://\_INTERNAL_00\cj901\_CONTENT
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> get ./dumps/internal/cj901_CONTENT/diction.htm
+downloading...Not found
+\_INTERNAL_00\ >> setpath raw://\_INTERNAL_00\data\
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> setpath raw://\_INTERNAL_00\DATA
+Not found
+\_INTERNAL_00\ >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00\ >> setpath raw://\_INTERNAL_00
+\_INTERNAL_00 >> list
+<sys_bak>
+fav.inf
+line3.inf
+drvvewer.inf
+<data>
+<cj900>
+<cj900_01>
+<cj900_02>
+<cj900_03>
+<cj900_04>
+<cj900_05>
+<cj901>
+<cj901_01>
+<cj901_02>
+<cj901_03>
+<cj901_04>
+<cj901_05>
+<stdy0>
+<hyaku>
+<numplace>
+<temp.inf>
+jpush.wrk
+jlpush.wrk
+siorivi.inf
+OK, Success
+\_INTERNAL_00 >> disconnect
+disconnecting...done
+>> 

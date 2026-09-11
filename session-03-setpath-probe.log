@@ -1,0 +1,13 @@
+Exword dictionary tool.
+Type 'help' for a list of commands.
+>> connect
+connecting to device...connect failed
+>> setpath mem://data
+>> list
+>> setpath mem:///DATA
+>> list
+>> set debug 5
+>> setpath mem:///data
+>> set debug 0
+>> setpath mem:///
+>> 
