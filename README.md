@@ -158,6 +158,20 @@ Needs USB mode turned on from the dictionary's menu before the Mac can see it.
 Not reachable over USB: `\sys0` (program modules `.dca`), `\data0` (dictionary data `.cjd`, fonts `.cjf`), `\drv0` by name. Known only from paths inside `jpush.wrk`.
 - 2026-09-11 — **Next phase chosen: load our own text** (TextLoader mode), via a keep-alive session (`live.sh`) so probes stop costing USB toggles.
   - First write to the device: `payloads/hello.txt` (ASCII, CRLF), sent to the text-mode root. Undo = `delete hello.txt`. The 6 original root files are backed up in `dumps/library/_INTERNAL_00/`.
+- 2026-09-12 — **Session 10: first write to the device** (keep-alive `live.sh`, text mode), log in `session-10-live.log`.
+  - `send payloads/hello.txt` → `uploading...OK, Success`. `hello.txt` now appears in the root listing. **Writing to the device works.**
+  - **The firmware created `dlname.inf` by itself**, next to `hello.txt`. It wasn't in any earlier listing. Almost certainly TextLoader's index of loaded text files (name mapping).
+  - ✅ **Capacity resolved: the second number is FREE space, not used.** Before: `52428800 / 52428800`; after uploading 65 bytes: `52428800 / 52420800`. It *decreased*, so `exword.c`'s `free` field name is right and protocol.txt's "amount of space used" is wrong. Internal memory is 50 MiB and was **empty**, not full.
+  - **Allocation unit looks like 4,000 bytes**: 8,000 bytes disappeared for two new files (65-byte `hello.txt` + `dlname.inf`). Fits `siorivi.inf` being exactly 4,000 bytes.
+  - **Keep-alive works.** The connection survived with a `model` ping every 30 s, so probes no longer cost a USB toggle.
+  - **Uploads round-trip intact**: `hello.txt` fetched back is byte-identical to `payloads/hello.txt` (`cmp`).
+  - 🔑 **`dlname.inf` = 16 bytes, contents: `\\drv0\hello.txt`** (raw string, no terminator). Two things follow:
+    - **The USB root `\_INTERNAL_00` really is the internal `\\drv0\` volume** — confirmed by a path the *firmware itself* wrote, matching the inference from `jpush.wrk`.
+    - It records the **most recently loaded file only** — not an index of all of them (see the second-file test below).
+  - **Second-file test** (`payloads/hello2.txt`, 14 bytes):
+    - `dlname.inf` became 17 bytes holding only `\\drv0\hello2.txt`. The `hello.txt` entry was **overwritten, not appended**. So `dlname.inf` = "name of the last file loaded", written by the firmware.
+    - ✅ **4,000-byte allocation unit confirmed**: free went `52420800` → `52416800`, a drop of exactly 4,000 for one new file. The first upload's 8,000 = `hello.txt` (4,000) + the newly created `dlname.inf` (4,000); this time the index was rewritten in place at no extra cost.
+    - Root now holds `hello.txt`, `hello2.txt`, `dlname.inf` alongside the original files.
 - `get <localpath>`: downloads the file named `basename(localpath)` from the *current device folder* and saves it to `localpath`. So `get /abs/dumps/fav.inf` pulls `fav.inf`. Backups go to `dumps/`.
 
 ## Do NOT run (destructive)
