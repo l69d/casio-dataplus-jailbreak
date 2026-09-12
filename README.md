@@ -322,7 +322,13 @@ It had, however, already been fed data: the three OBEX `connect` attempts each b
 
 **So this updater does not erase-then-wait.** It either validates what it receives or times out, and fails safe. That materially lowers the risk of experimenting with the USB route — though it says nothing yet about what happens to a payload large enough to look like a real image.
 
-Open questions: the exact error code shown, whether the error came from the invalid bytes or from an idle timeout, and whether the device still boots normally afterwards (being confirmed).
+✅ **Confirmed by the owner: the dictionary boots normally afterwards.** The message was a bare `ERROR` with no code.
+
+So the full sequence — enter `USB OS update`, feed it 33 bytes of non-firmware, get `ERROR`, device drops off USB, RESET, boots fine — **is safe and repeatable**. The USB updater can be probed without risking the device, at least with small invalid payloads.
+
+Still unknown: whether a payload large enough to look like a real image is validated the same way, and what a valid header/checksum looks like.
+
+**Next and highest-value**: the L355's own test menu may be able to *read* flash. The DATAPLUS 8 menu has `MANUAL CHECK → FLASH CHECK` / `FLASH UTILITYS` and `VERSION → CHECK SUM`. If our generation offers any dump-to-SD function, that yields the firmware image **without opening the case** — which is the backup that makes every later experiment reversible.
 
 **Leads for a firmware route**: `OS UPDATE` (how does it read an image — SD card? USB? what format/signature?), `FLASH UTILITYS`, and `SERVICE MENU` (needs a password we don't have). `CHECK SUM` suggests NAND flash.
 
