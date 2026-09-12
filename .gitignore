@@ -2,6 +2,8 @@
 dumps/
 # live.sh FIFO
 .live.in
+# generated limit-test payloads (~10 MB; regenerate: see README)
+payloads/generated/
 
 # libexword build outputs (regenerate: see README quick start)
 *.o

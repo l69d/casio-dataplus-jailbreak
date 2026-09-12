@@ -25,7 +25,7 @@ make && cd ..
 - `patches/libexword-macos.patch` — our changes to libexword vs upstream `f2a57ae`
 - `dumps/<mode>/<medium>/` — files copied off the dictionary (backups; never edit in place). **Not in the public repo** (favourites, lookup history, copyrighted dictionary text); kept in a separate private repo
 - `session-NN-*.log` — raw output of each device session
-- `payloads/` — files we create to send *to* the dictionary (vs `dumps/`, which come *from* it)
+- `payloads/` — files we create to send *to* the dictionary (vs `dumps/`, which come *from* it). `payloads/generated/` holds the ~11 MB of limit-test files and is git-ignored; regenerate with the snippet in "Limit tests" below
 - `live.sh` — keep-alive session: one connection held open, commands sent with `echo '<cmd>' > .live.in`, 30 s `model` ping. Saves a USB toggle per probe.
 - `crawl.py` — read-only crawler: `./crawl.py text > session-NN-crawl-text.log` maps one connect mode in one USB toggle, copying files to `dumps/<mode>/<medium>/`. Only allows `connect`/`list`/`capacity`/`model`/`setpath`/`get`/`disconnect`. `./crawl.py --selftest` needs no device.
 
@@ -172,7 +172,45 @@ Not reachable over USB: `\sys0` (program modules `.dca`), `\data0` (dictionary d
     - `dlname.inf` became 17 bytes holding only `\\drv0\hello2.txt`. The `hello.txt` entry was **overwritten, not appended**. So `dlname.inf` = "name of the last file loaded", written by the firmware.
     - ✅ **4,000-byte allocation unit confirmed**: free went `52420800` → `52416800`, a drop of exactly 4,000 for one new file. The first upload's 8,000 = `hello.txt` (4,000) + the newly created `dlname.inf` (4,000); this time the index was rewritten in place at no extra cost.
     - Root now holds `hello.txt`, `hello2.txt`, `dlname.inf` alongside the original files.
+  - ✅✅ **Confirmed on the device by the owner: TextLoader works.** Both `hello.txt` and `hello2.txt` are listed in the dictionary's text viewer, and the greeting text reads correctly on screen.
+    - **A plain ASCII `.txt` (CRLF) in the USB root is enough.** No Casio TextLoader software, no Windows, no container format, no registration step — `exword` + `send` is the whole path. `dlname.inf` is written by the firmware afterwards, not a prerequisite.
+    - This makes the dictionary a usable reader for our own text from macOS.
+  - ⚠️ **The dictionary's keypad is locked while a USB connection is open.** It can't be browsed until `disconnect`, which hands control back (and drops it off the bus). So: connect → write/read → disconnect → check on the device → toggle USB mode again for the next round.
+  - **Keep-alive endurance**: the connection held across 7 `model` pings (~3.5 min of idle-with-pings) plus several command batches, and ended only because we sent `disconnect` — it was never dropped by the device.
 - `get <localpath>`: downloads the file named `basename(localpath)` from the *current device folder* and saves it to `localpath`. So `get /abs/dumps/fav.inf` pulls `fav.inf`. Backups go to `dumps/`.
+
+## Limit tests (session 11, in progress)
+
+Measuring how far TextLoader goes: biggest file that uploads and still opens, how many files the viewer lists, and how the device reports a filling disk. Every line in every payload is numbered (`000001 The quick brown fox…`, CRLF), so truncation is visible on screen.
+
+| Payload | Size |
+|---|---|
+| `size-064k.txt` | 65,561 |
+| `size-512k.txt` | 524,329 |
+| `size-2m.txt` | 2,097,157 |
+| `size-8m.txt` | 8,388,628 |
+| `many/t01..t20.txt` | 704 B each |
+
+Total ~10.9 MB against ~51 MB free, so the ladder can't fill the device by accident. `capacity` is read after each send (second number = free, confirmed in session 10). Filling all 50 MiB deliberately is a separate decision, not part of this run.
+
+Regenerate the payloads:
+
+```sh
+python3 - <<'EOF'
+import os
+os.makedirs('payloads/generated/many', exist_ok=True)
+def write(path, target):
+    with open(path, 'wb') as f:
+        n = 0
+        while f.tell() < target:
+            n += 1
+            f.write(f'{n:06d} The quick brown fox jumps over the lazy dog.\r\n'.encode())
+for kb, name in [(64,'size-064k.txt'), (512,'size-512k.txt'), (2048,'size-2m.txt'), (8192,'size-8m.txt')]:
+    write(f'payloads/generated/{name}', kb * 1024)
+for i in range(1, 21):
+    write(f'payloads/generated/many/t{i:02d}.txt', 200)
+EOF
+```
 
 ## Do NOT run (destructive)
 
