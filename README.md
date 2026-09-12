@@ -267,6 +267,17 @@ curl -sS -A 'Mozilla/5.0' 'https://scrapbox.io/api/pages/brain-hackers/EX-word_%
 | 9. TOUCH PANEL PRESET | Calibration |
 | **10. RESET** | ☠️ "**Immediately wipes everything, ignoring password locks**" |
 
+### 🔑 Our L355 test menu: OS UPDATE exists (2026-09-12)
+
+Entered the test menu successfully. **`OS UPDATE` offers two routes: `SD card update` and `USB OS update`.**
+
+So this generation has a **built-in firmware flashing path** — undocumented for DATAPLUS 3 anywhere public. That is the realistic route to custom firmware, far cheaper than a chip-off dump.
+
+**Not selected yet, deliberately.** Some updaters erase flash *before* receiving an image; if this one does and we have nothing to send, the device bricks with no backup to restore. Order of work must be:
+
+1. Find whether Casio published an official OS image for XD-SW/XD-GW (gives both a format reference and a restore path).
+2. Only then probe the updater — SD route first (a missing-file error may name the expected filename), watching the USB bus during the USB route to see what it enumerates as.
+
 **Leads for a firmware route**: `OS UPDATE` (how does it read an image — SD card? USB? what format/signature?), `FLASH UTILITYS`, and `SERVICE MENU` (needs a password we don't have). `CHECK SUM` suggests NAND flash.
 
 ☠️ **Never select** top-level `RESET` or `MANUAL CHECK → FULL RESET`: both wipe the device, and we have no firmware backup to restore.
