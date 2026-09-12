@@ -283,6 +283,24 @@ So this generation has a **built-in firmware flashing path** — undocumented fo
 1. Find whether Casio published an official OS image for XD-SW/XD-GW (gives both a format reference and a restore path).
 2. Only then probe the updater — SD route first (a missing-file error may name the expected filename), watching the USB bus during the USB route to see what it enumerates as.
 
+### `USB OS update` mode probed (2026-09-12), log `session-12-osupdate-probe.log`
+
+Owner selected **OS UPDATE → USB OS update**. What the Mac sees:
+
+| Observation | Value |
+|---|---|
+| Enumeration | **Identical to normal mode**: `CESG502`, `07cf:6101`, `bcdDevice 0x0100`, 12 Mb/s, 1 configuration, `bDeviceClass 0` |
+| OBEX connect (library `0x11`, text `0x20`, cd `0xf0`) | **All fail** |
+| Bulk write to endpoint 1 | **Succeeds** — the 11-byte connect packet goes out fine |
+| Bulk read back | **Stalls**: `obex_verify_seq(): Error reading seq number (-9)` = `LIBUSB_ERROR_PIPE` |
+
+**Interpretation**: update mode is not a separate DFU device and not an OBEX server. It re-uses the same vendor interface but acts as a **one-way listener** — it accepts data on the bulk-out pipe and stalls reads. So it is waiting to be fed a firmware image and will not answer queries.
+
+**Consequences**:
+- Anything written to endpoint 1 in this mode goes straight into the updater. With no image, no format knowledge and no restore copy, writing arbitrary bytes is the one move that can permanently brick the device.
+- Exit safely with the **RESET** hole on the back or a power cycle — no data is written by merely entering the mode.
+- To go further we would need the image format (header/magic, checksum, signature). Nothing public exists, so the honest order stays: **dump the flash over hardware first**, then study the updater with a known-good image in hand.
+
 **Leads for a firmware route**: `OS UPDATE` (how does it read an image — SD card? USB? what format/signature?), `FLASH UTILITYS`, and `SERVICE MENU` (needs a password we don't have). `CHECK SUM` suggests NAND flash.
 
 ☠️ **Never select** top-level `RESET` or `MANUAL CHECK → FULL RESET`: both wipe the device, and we have no firmware backup to restore.

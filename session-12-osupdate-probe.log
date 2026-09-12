@@ -1,0 +1,87 @@
+=== Sat Sep 12 08:40:15 IST 2026 : USB OS update mode probe ===
+--- IOUSB device names/IDs ---
+  |   |   "idProduct" = 1560
+  |   |   "bcdDevice" = 34644
+  |   |   "USB Product Name" = "USB2.0 Hub"
+  |   |   "idVendor" = 1507
+  |   |     "idProduct" = 1874
+  |   |     "bcdDevice" = 563
+  |   |     "USB Product Name" = "USB Storage"
+  |   |     "USB Vendor Name" = "Generic"
+  |   |     "idVendor" = 1507
+  |   |     "idProduct" = 257
+  |   |     "bcdDevice" = 1
+  |   |     "USB Product Name" = "Cypress USB Keyboard / PS2 Mouse"
+  |   |     "USB Vendor Name" = "Cypress"
+  |   |     "idVendor" = 1204
+  |         "idProduct" = 24833
+  |         "bcdDevice" = 256
+  |         "USB Product Name" = "CESG502"
+  |         "USB Vendor Name" = "CASIO"
+  |         "idVendor" = 1999
+--- full descriptors for any Casio/unknown device ---
+              Current Available (mA): 500
+              Current Required (mA): 100
+              Extra Operating Current (mA): 0
+
+            CESG502:
+
+              Product ID: 0x6101
+              Vendor ID: 0x07cf  (Casio Computer Co., Ltd.)
+              Version: 1.00
+              Speed: Up to 12 Mb/s
+              Manufacturer: CASIO
+              Location ID: 0x00130000 / 4
+              Current Available (mA): 500
+              Current Required (mA): 100
+              Extra Operating Current (mA): 0
+
+            USB Storage:
+
+              Product ID: 0x0752
+              Vendor ID: 0x05e3  (Genesys Logic, Inc.)
+              Version: 2.33
+              Speed: Up to 480 Mb/s
+              Manufacturer: Generic
+              Location ID: 0x00110000 / 2
+              Current Available (mA): 500
+              Current Required (mA): 98
+              Extra Operating Current (mA): 0
+              Media:
+                STORAGE DEVICE:
+--- recent USB kernel log ---
+Exword dictionary tool.
+Type 'help' for a list of commands.
+>> connect
+connecting to device...connect failed
+>> model
+>> capacity
+>> list
+>> setpath raw://
+>> list
+>> Exword dictionary tool.
+Type 'help' for a list of commands.
+>> set debug 5
+>> connect text
+connecting to device...obex_object_send(): Adding 7 bytes of non-headerdata
+obex_object_send(): Sending package with opcode 128
+Tx: 00 80 00 0A 20 40 10 00 40 00 20
+obex_object_send(): len = 11 bytes
+obex_bulk_write(): Write to endpoint 1
+obex_verify_seq(): Error reading seq number (-9)
+connect failed
+>> connect cd
+connecting to device...obex_object_send(): Adding 7 bytes of non-headerdata
+obex_object_send(): Sending package with opcode 128
+Tx: 00 80 00 0A F0 40 10 00 40 00 20
+obex_object_send(): len = 11 bytes
+obex_bulk_write(): Write to endpoint 1
+connect failed
+>> connect library
+connecting to device...obex_object_send(): Adding 7 bytes of non-headerdata
+obex_object_send(): Sending package with opcode 128
+Tx: 00 80 00 0A 11 40 10 00 40 00 20
+obex_object_send(): len = 11 bytes
+obex_bulk_write(): Write to endpoint 1
+connect failed
+>> 
