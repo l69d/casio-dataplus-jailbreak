@@ -227,7 +227,21 @@ EOF
 - Replacing the firmware outright would need a flash dump over hardware (chip clip/JTAG), plus RE of an undocumented PVOS 400 boot chain on an unidentified SoC. No public precedent for any DATAPLUS model.
 - ⚠️ **The dictionary has no text editor** — the text feature is a *viewer*. Journalling on the device itself isn't possible without custom code; as it stands, write on the Mac, read on the device.
 
-### Test mode (not yet tried)
+### Test mode — entered 2026-09-12 ✅
+
+Version screen on our device:
+
+| Field | Value |
+|---|---|
+| MODEL | **L355** |
+| OS ver. | 01.00 |
+| APL ver. | 01.00 |
+
+- **`L355` = the `gy355` sub-model** reported over USB, so the USB sub-model field is the internal model code.
+- **OS 01.00 = the `0100` in the USB string `gy131,ON,0100`**, so that field is the OS version.
+- No BIOS line, unlike the newer model quoted by Brain Hackers (`CY606, BIOS 2.0, OS 2.0`).
+
+### Test mode — how to enter
 
 Documented by Brain Hackers; needs no USB and no disassembly.
 
