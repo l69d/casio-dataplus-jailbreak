@@ -301,6 +301,29 @@ Owner selected **OS UPDATE → USB OS update**. What the Mac sees:
 - Exit safely with the **RESET** hole on the back or a power cycle — no data is written by merely entering the mode.
 - To go further we would need the image format (header/magic, checksum, signature). Nothing public exists, so the honest order stays: **dump the flash over hardware first**, then study the updater with a known-good image in hand.
 
+### Raw write attempt — aborted, nothing sent (2026-09-12)
+
+Owner authorised writing to the updater. Built `rawsend.c` for it: a small libusb program that bulk-writes a file straight to endpoint `0x01` (what `exword` cannot do, since update mode ignores OBEX) and then tries a read on `0x82` to see if feeding it data makes it answer.
+
+```sh
+cc rawsend.c -o rawsend $(pkg-config --cflags --libs libusb-1.0)
+./rawsend payloads/generated/probe-4k.bin 0x01 4096
+```
+
+The plan was a 4 KB deliberately-invalid payload (`CLAUDE-PROBE-NOT-A-FIRMWARE-IMAGE…`) to test whether the updater validates a header *before* erasing, with the device's screen as the only feedback channel.
+
+**It never ran.** The pre-send guard found the device had left the bus, so **no bytes were written by `rawsend`**.
+
+### 🔑 The updater errors out instead of bricking (2026-09-12)
+
+The device displayed **`ERROR`** on screen and dropped off USB by itself.
+
+It had, however, already been fed data: the three OBEX `connect` attempts each bulk-wrote an 11-byte packet to endpoint `0x01` (`Write to endpoint 1` succeeded each time) — 33 bytes of definitely-not-firmware. The updater took it, waited, then errored and exited update mode.
+
+**So this updater does not erase-then-wait.** It either validates what it receives or times out, and fails safe. That materially lowers the risk of experimenting with the USB route — though it says nothing yet about what happens to a payload large enough to look like a real image.
+
+Open questions: the exact error code shown, whether the error came from the invalid bytes or from an idle timeout, and whether the device still boots normally afterwards (being confirmed).
+
 **Leads for a firmware route**: `OS UPDATE` (how does it read an image — SD card? USB? what format/signature?), `FLASH UTILITYS`, and `SERVICE MENU` (needs a password we don't have). `CHECK SUM` suggests NAND flash.
 
 ☠️ **Never select** top-level `RESET` or `MANUAL CHECK → FULL RESET`: both wipe the device, and we have no firmware backup to restore.
