@@ -273,6 +273,11 @@ Entered the test menu successfully. **`OS UPDATE` offers two routes: `SD card up
 
 So this generation has a **built-in firmware flashing path** — undocumented for DATAPLUS 3 anywhere public. That is the realistic route to custom firmware, far cheaper than a chip-off dump.
 
+⚠️ **Casio never published a firmware image for this generation.** Their [software download page](https://support.casio.jp/download.php?cid=003&pid=288) lists only EX-word TextLoader, TextLoader SC, CD Loader, Library and Educational Library — **no OS/firmware update for any series**, DATAPLUS 3 included. Consequences:
+- No reference image to learn the format from.
+- **No restore image if a flash goes wrong.** A bricked device stays bricked unless we dump its flash first over hardware.
+- So the only safe order is: **dump the existing firmware first**, then experiment with the updater.
+
 **Not selected yet, deliberately.** Some updaters erase flash *before* receiving an image; if this one does and we have nothing to send, the device bricks with no backup to restore. Order of work must be:
 
 1. Find whether Casio published an official OS image for XD-SW/XD-GW (gives both a format reference and a restore path).
