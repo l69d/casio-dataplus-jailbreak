@@ -33,3 +33,5 @@ libexword/ltmain.sh
 libexword/missing
 libexword/stamp-h1
 libexword/src/exword
+# compiled helper (build: see README)
+rawsend
