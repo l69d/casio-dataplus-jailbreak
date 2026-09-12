@@ -231,8 +231,12 @@ EOF
 
 Documented by Brain Hackers; needs no USB and no disassembly.
 
-- **Older models** (likely ours): power off → hold **Left + Back + Delete** and press **Power** for 5 s → at the Model/BIOS/OS popup press **Right, Right, Enter** → two beeps → TEST MENU.
-- **Newer models**: power off → hold **Back + Page-up** and press **Power** for 5 s → same Right, Right, Enter.
+Sources disagree about which combination belongs to which generation, so try both — a wrong one just boots normally.
+
+- **Try first** (2 of 3 sources put this on older models, and the [openexword post](https://openexword.livejournal.com/429.html) uses it generally): power off → hold **Back + Page-up** and press **Power** for 5 s → at the Model/BIOS/OS popup press **Right, Right, Enter** → two beeps → TEST MENU.
+- **Otherwise**: power off → hold **Left + Back + Delete** and press **Power** for 5 s → same Right, Right, Enter.
+- Exit: the **RESET** hole on the back returns to the dictionary screen.
+- Reported menu items (from a newer model, `MODEL: CY606, BIOS 2.0, OS 2.0`): version display, speaker check, keyboard check, lid open/close switch check — i.e. hardware diagnostics, not a firmware tool. Ours is unread; the function list page blocks automated fetching.
 - The [function list](https://scrapbox.io/brain-hackers/EX-word_%E3%83%86%E3%82%B9%E3%83%88%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E6%A9%9F%E8%83%BD%E4%B8%80%E8%A6%A7) blocks automated fetching (403). Read the menu off the screen instead. ⚠️ A test menu may contain format/erase functions — inspect only, select nothing that writes.
 
 ## Do NOT run (destructive)
