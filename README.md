@@ -250,7 +250,26 @@ Sources disagree about which combination belongs to which generation, so try bot
 - **Try first** (2 of 3 sources put this on older models, and the [openexword post](https://openexword.livejournal.com/429.html) uses it generally): power off → hold **Back + Page-up** and press **Power** for 5 s → at the Model/BIOS/OS popup press **Right, Right, Enter** → two beeps → TEST MENU.
 - **Otherwise**: power off → hold **Left + Back + Delete** and press **Power** for 5 s → same Right, Right, Enter.
 - Exit: the **RESET** hole on the back returns to the dictionary screen.
-- Reported menu items (from a newer model, `MODEL: CY606, BIOS 2.0, OS 2.0`): version display, speaker check, keyboard check, lid open/close switch check — i.e. hardware diagnostics, not a firmware tool. Ours is unread; the function list page blocks automated fetching.
+- Our device shows the popup with `Back + Page-up + Power`, but **`Right, Right, Enter` did not get into the menu** (2026-09-12). Next to try: the documented older-model combo `Left + Back + Delete + Power`, and 訳/決定 as Enter, pressed after releasing the three keys.
+
+**Full menu list** (Brain Hackers, from a DATAPLUS 8 `CY606`; ours is older so it may differ). The page 403s to fetchers but `curl` with a browser user-agent works:
+
+```sh
+curl -sS -A 'Mozilla/5.0' 'https://scrapbox.io/api/pages/brain-hackers/EX-word_%E3%83%86%E3%82%B9%E3%83%88%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E6%A9%9F%E8%83%BD%E4%B8%80%E8%A6%A7/text'
+```
+
+| Item | What it does |
+|---|---|
+| 1–5, 11–12 | Automated hardware checks (version, beep, keyboard, lid switch, touch panel, SDRAM/NAND, SD card, USB, audio, clock) |
+| 6. MANUAL CHECK | Submenus: DISPLAY, MEMORY, **FLASH CHECK**, INPUT, SD-CARD, AUDIO, USB, OTHERS, **FLASH UTILITYS**, **SERVICE MENU** (password-protected), **FULL RESET (CONFIG&DICS)** ⚠️ |
+| 7. VERSION | Version display; **CHECK SUM** prints `NAND 1 CHECK SUM =` then freezes |
+| **8. OS UPDATE** | 🔑 "Appears to allow updating the OS; details unknown" — the most promising firmware hook found so far |
+| 9. TOUCH PANEL PRESET | Calibration |
+| **10. RESET** | ☠️ "**Immediately wipes everything, ignoring password locks**" |
+
+**Leads for a firmware route**: `OS UPDATE` (how does it read an image — SD card? USB? what format/signature?), `FLASH UTILITYS`, and `SERVICE MENU` (needs a password we don't have). `CHECK SUM` suggests NAND flash.
+
+☠️ **Never select** top-level `RESET` or `MANUAL CHECK → FULL RESET`: both wipe the device, and we have no firmware backup to restore.
 - The [function list](https://scrapbox.io/brain-hackers/EX-word_%E3%83%86%E3%82%B9%E3%83%88%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E6%A9%9F%E8%83%BD%E4%B8%80%E8%A6%A7) blocks automated fetching (403). Read the menu off the screen instead. ⚠️ A test menu may contain format/erase functions — inspect only, select nothing that writes.
 
 ## Do NOT run (destructive)
