@@ -328,7 +328,32 @@ So the full sequence — enter `USB OS update`, feed it 33 bytes of non-firmware
 
 Still unknown: whether a payload large enough to look like a real image is validated the same way, and what a valid header/checksum looks like.
 
-**Next and highest-value**: the L355's own test menu may be able to *read* flash. The DATAPLUS 8 menu has `MANUAL CHECK → FLASH CHECK` / `FLASH UTILITYS` and `VERSION → CHECK SUM`. If our generation offers any dump-to-SD function, that yields the firmware image **without opening the case** — which is the backup that makes every later experiment reversible.
+### 🔑🔑 `MANUAL CHECK → FLASH UTILITYS` on our L355 (2026-09-12)
+
+| Item | Reading |
+|---|---|
+| **1. DATA OUT** | Flash → out. **The dump route**: if it writes flash contents to SD, that is the firmware image, obtained without opening the case |
+| **2. DATA IN** | Data → flash. ☠️ **The brick button.** Never select without a verified image |
+| **3. USERAREA copy (DVRO → SD)** | Copies the user area to SD. `DVRO` = **`DRV0`**, the internal volume identified from `jpush.wrk` paths and `dlname.inf` — independent confirmation of that mapping |
+| 4. USERAREA copy (SD → DVRO) | The reverse: overwrites the user area from SD. Recoverable (we have the 6 root files backed up) but not to be run casually |
+| **5. TJFS PHYSICAL FORMAT** | ☠️ Physically formats the filesystem. `TJFS` is Casio's own filesystem name — new information |
+| **6. FORCE STRONG FORMAT** | ☠️ Worse. Never select |
+
+`DATA OUT` and `USERAREA copy` only *read* device flash, so they cannot brick it; they write to the SD card. `DATA IN` is the one irreversible option.
+
+⚠️ **Card constraint**: this generation takes **full-size SD, ~1 GB maximum, no SDHC** (per the XD-SW6400 spec; our exact retail model is still unidentified, so confirm against the manual or the slot). A modern SDHC/SDXC card will simply not be recognised, so the dump needs an old ≤1 GB SD card, FAT-formatted.
+
+**Dump plan, safest order:**
+
+1. **`3. USERAREA copy (DVRO → SD)`** first — reads flash only, and proves the whole pipeline works (card recognised, file written, readable on the Mac) before anything that matters. Also gives a second, device-made copy of `drv0` to compare against our USB backups in `dumps/library/_INTERNAL_00/`.
+2. **`1. DATA OUT`** — the firmware read. Whatever lands on the card gets analysed here (size, headers, entropy, strings) and becomes the restore image that makes `DATA IN` survivable later.
+3. Only with a verified image in hand does `2. DATA IN` become a reasonable experiment.
+
+Never: `5. TJFS PHYSICAL FORMAT`, `6. FORCE STRONG FORMAT`, and not `4` (SD → DRV0) while the user area still holds the only copy of anything.
+
+This makes a full backup plausible **without hardware work**, which reverses the earlier conclusion that a chip-off dump was the only way. Plan: insert a card → test menu → `FLASH UTILITYS` → `DATA OUT` → read the card on the Mac and identify what came off.
+
+**Also relevant**: the L355's own test menu may be able to *read* flash. The DATAPLUS 8 menu has `MANUAL CHECK → FLASH CHECK` / `FLASH UTILITYS` and `VERSION → CHECK SUM`. If our generation offers any dump-to-SD function, that yields the firmware image **without opening the case** — which is the backup that makes every later experiment reversible.
 
 **Leads for a firmware route**: `OS UPDATE` (how does it read an image — SD card? USB? what format/signature?), `FLASH UTILITYS`, and `SERVICE MENU` (needs a password we don't have). `CHECK SUM` suggests NAND flash.
 
