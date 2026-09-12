@@ -33,6 +33,7 @@ make && cd ..
 
 | Field | Value |
 |---|---|
+| Model | **XD-SW6400** (DATAPLUS 3, 2007) — internal code `L355`, USB sub-model `gy355`, 50 MB internal memory |
 | USB name | CESG502 |
 | Manufacturer | CASIO (Casio Computer Co., Ltd.) |
 | Vendor / Product ID | `0x07cf` / `0x6101` |
@@ -51,7 +52,7 @@ Needs USB mode turned on from the dictionary's menu before the Mac can see it.
 - Auth quirk (from protocol.txt): in library mode, calling `_List` makes commands that need auth work without it. Worth checking on our device.
 - Add-on dictionaries are encrypted. The key is derived from a `_CryptKey` exchange; `dict decrypt <id>` downloads and decrypts one.
 - 2026-09-11 — **Session 01 (read-only)**, log in `session-01-readonly.log`. Connected in library mode, region `ja`, with no auth needed.
-  - `model` → `gy131,ON,0100`, sub-model **`gy355`**. `models.txt` doesn't list gy355 (XD-SW4800 = gy350, XD-GW9600 = gy392), so this variant is undocumented upstream. The model number printed on the device (XD-…) would pin it down.
+  - `model` → `gy131,ON,0100`, sub-model **`gy355`**. `models.txt` doesn't list gy355 (XD-SW4800 = gy350, XD-GW9600 = gy392), so this variant is undocumented upstream. **Resolved 2026-09-12: `gy355` = XD-SW6400** (confirmed from the case), and the test menu shows the same code as `L355` — worth contributing upstream to `models.txt`.
   - `dict list` → empty: no add-on dictionaries installed, which means nothing for `dict reset` to wipe.
   - Internal memory root (`/_INTERNAL_00`), `<x>` = directory:
 
@@ -341,7 +342,7 @@ Still unknown: whether a payload large enough to look like a real image is valid
 
 `DATA OUT` and `USERAREA copy` only *read* device flash, so they cannot brick it; they write to the SD card. `DATA IN` is the one irreversible option.
 
-⚠️ **Card constraint**: this generation takes **full-size SD, ~1 GB maximum, no SDHC** (per the XD-SW6400 spec; our exact retail model is still unidentified, so confirm against the manual or the slot). A modern SDHC/SDXC card will simply not be recognised, so the dump needs an old ≤1 GB SD card, FAT-formatted.
+⚠️ **Card constraint**: this generation takes **full-size SD, ~1 GB maximum, no SDHC** (our device **is** an XD-SW6400, so this is its own spec, not an inference). A modern SDHC/SDXC card will simply not be recognised, so the dump needs an old ≤1 GB SD card, FAT-formatted.
 
 **Dump plan, safest order:**
 
