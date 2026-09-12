@@ -212,6 +212,29 @@ for i in range(1, 21):
 EOF
 ```
 
+## Custom firmware / homebrew: what's actually possible (research, 2026-09-12)
+
+| Generation | OS | Homebrew status |
+|---|---|---|
+| DATAPLUS 3 (ours, XD-SW/XD-GW) | **PVOS 400** | No known custom apps or firmware |
+| DATAPLUS 4 | PVOS 500 | No |
+| **DATAPLUS 5/6/7** | PVOS 600, SH4 | **Yes** — active scene |
+
+- [Brain Hackers](https://github.com/brain-hackers) ship a working toolchain for DATAPLUS 5/6/7: [`devkitSH4`](https://brain.fandom.com/ja/wiki/DevkitSH4) (SH4 cross-compiler + `libdataplus`), [`exword-template`](https://github.com/brain-hackers/exword-template) (app skeleton), [`EXplorer`](https://github.com/brain-hackers) (file manager that creates/deletes files on device), and [Gnuboy EX](https://wiki3.jp/brain/page/34) (Game Boy / GB Color emulator).
+- **Gnuboy EX is reported to work on DATAPLUS 5/6/7 and *not* on DATAPLUS 4 or earlier.** So our DP3 is out for these apps.
+- Apps install as **add-on dictionaries via libexword**, exactly the `<id>\_CONTENT` structure in `dict.c`: `connect` → `dict reset` (⚠️ erases all add-ons) → `dict auth <key>` → `dict install <ID>` → `send` for data/ROMs. The *transport* exists on our DP3; what's missing is an OS that executes add-on code.
+- The USB protocol is the same family across generations (DATAPLUS 2 was reverse-engineered with the same `07cf:6101` IDs, [Thias' blog](https://wiesmann.codiferes.net/wordpress/archives/5877)), but that work reached protocol-level access only — no firmware extraction, no code execution.
+- Replacing the firmware outright would need a flash dump over hardware (chip clip/JTAG), plus RE of an undocumented PVOS 400 boot chain on an unidentified SoC. No public precedent for any DATAPLUS model.
+- ⚠️ **The dictionary has no text editor** — the text feature is a *viewer*. Journalling on the device itself isn't possible without custom code; as it stands, write on the Mac, read on the device.
+
+### Test mode (not yet tried)
+
+Documented by Brain Hackers; needs no USB and no disassembly.
+
+- **Older models** (likely ours): power off → hold **Left + Back + Delete** and press **Power** for 5 s → at the Model/BIOS/OS popup press **Right, Right, Enter** → two beeps → TEST MENU.
+- **Newer models**: power off → hold **Back + Page-up** and press **Power** for 5 s → same Right, Right, Enter.
+- The [function list](https://scrapbox.io/brain-hackers/EX-word_%E3%83%86%E3%82%B9%E3%83%88%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E6%A9%9F%E8%83%BD%E4%B8%80%E8%A6%A7) blocks automated fetching (403). Read the menu off the screen instead. ⚠️ A test menu may contain format/erase functions — inspect only, select nothing that writes.
+
 ## Do NOT run (destructive)
 
 | Command | Effect |
